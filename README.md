@@ -15,21 +15,21 @@ Run `make flash`
 
 display a list of discovered EQ-3 TRVs
 
-`mosquitto_sub -h 127.0.0.1 -p 1883 -t "**mqttid**radout/devlist"`
+`mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/devlist"`
 
 show a status message each time a trv is contacted
 
-`mosquitto_sub -h 127.0.0.1 -p 1883 -t "**mqttid**radout/status"`  
+`mosquitto_sub -h 127.0.0.1 -p 1883 -t "<mqttid>radout/status"`  
 
 set trv temp to 20 degrees
 
-`mosquitto_pub -h 127.0.0.1 -p 1883 -t "**mqttid**radin/trv" -m "ab:cd:ef:gh:ij:kl settemp 20.0"`  
+`mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/trv" -m "ab:cd:ef:gh:ij:kl settemp 20.0"`  
 
 scan for devices
 
-`mosquitto_pub -h 127.0.0.1 -p 1883 -t "**mqttid**radin/scan" -m "payload"`  
+`mosquitto_pub -h 127.0.0.1 -p 1883 -t "<mqttid>radin/scan" -m "payload"`  
 
-Note that you need to use the mqtt id for the esp that must be configured during config mode (see below). 
+Note that you need to use the <mqttid> for the esp that must be configured during config mode (see below). 
 
 ---
 
