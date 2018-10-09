@@ -99,7 +99,7 @@ static void connected_cb(mqtt_client *client, mqtt_event_data_t *event_data){
     mqtt_subscribe(client, topic, 0);
     /* Publish welcome message to /espradout */
     sprintf(topic, "%s/connect", outtopicbase);
-    sprintf(startmsg, "Heating control v%s.%s active", EQ3_MAJVER, EQ3_MINVER);
+    sprintf(startmsg, "Bobos Heating control v%s.%s active", EQ3_MAJVER, EQ3_MINVER);
     mqtt_publish(client, topic, startmsg, strlen(startmsg), 0, 0);
     if(devlist != NULL){
         sprintf(topic, "%s/devlist", outtopicbase);
