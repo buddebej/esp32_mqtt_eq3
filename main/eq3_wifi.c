@@ -30,6 +30,9 @@
 #include "tcpip_adapter.h"
 #include "mqtt.h"
 
+#include "heating.h"
+
+
 #ifdef removed
 #include "esp_smartconfig.h"
 #endif
@@ -108,6 +111,8 @@ static void connected_cb(mqtt_client *client, mqtt_event_data_t *event_data){
 	free(devlist);
 	devlist = NULL;
     }
+
+    heating_init();
 }
 /* MQTT disconnected */
 static void disconnected_cb(mqtt_client *client, mqtt_event_data_t *event_data){
@@ -126,7 +131,7 @@ static void publish_cb(mqtt_client *client, mqtt_event_data_t *event_data){
 
 /* MQTT data received (subscribed topic receives data) */
 static void data_cb(mqtt_client *client, mqtt_event_data_t *event_data){
-    bool trvcmd = false, trvscan = false;
+    bool trvcmd = false, trvscan = false, heaton = false, heatoff = false;
     if(event_data->data_offset == 0) {
         char *topic = malloc(event_data->topic_length + 1);
         memcpy(topic, event_data->topic, event_data->topic_length);
@@ -135,6 +140,10 @@ static void data_cb(mqtt_client *client, mqtt_event_data_t *event_data){
 	        trvcmd = true;
 	    if(strstr(topic, "/scan") != NULL)
 	        trvscan = true;
+        if(strstr(topic, "/heaton") != NULL)
+            heaton = true;
+         if(strstr(topic, "/heatoff") != NULL)
+            heatoff = true;
         if(strstr(topic, "/check") != NULL){
 	        char rsptopic[45];
             char msg[35];
@@ -159,6 +168,13 @@ static void data_cb(mqtt_client *client, mqtt_event_data_t *event_data){
         start_scan();
     }
     
+    if(heaton == true){
+        heating_on();
+    }
+
+    if(heatoff == true){
+        heating_off();
+    }
 }
 
 /* Publish a status message */

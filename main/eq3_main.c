@@ -167,7 +167,7 @@ static esp_gattc_char_elem_t *char_elem_result = &elemres;
 static bool registered = false;
 
 /* Name reported by EQ-3 valves when scanning */
-static const char remote_device_name[] = "CC-RT-M-BLE";
+static const char remote_device_name[] = "CC-RT-BLE";
 
 #define PROFILE_NUM 1
 #define PROFILE_A_APP_ID 0
