@@ -1,4 +1,4 @@
-#### Steps to make this great project by softypits work for me:
+#### Steps to make this great project by softypit work for me:
 
 Use esp-idf at the following revision:
 https://github.com/espressif/esp-idf/tree/2e8441df9eb046b2436981dbaaa442b312f12101
@@ -10,6 +10,26 @@ Change device id to suite my hardware:
 https://github.com/buddebej/esp32_mqtt_eq3/commit/4267beba7d82416f65a3765e0c6d2cab8dda547d
 
 Run `make flash`
+
+##### mqqt testing:
+
+display a list of discovered EQ-3 TRVs
+
+`mosquitto_sub -h 127.0.0.1 -p 1883 -t "**mqttid**radout/devlist"`
+
+show a status message each time a trv is contacted
+
+`mosquitto_sub -h 127.0.0.1 -p 1883 -t "**mqttid**radout/status"`  
+
+set trv temp to 20 degrees
+
+`mosquitto_pub -h 127.0.0.1 -p 1883 -t "**mqttid**radin/trv" -m "ab:cd:ef:gh:ij:kl settemp 20.0"`  
+
+scan for devices
+
+`mosquitto_pub -h 127.0.0.1 -p 1883 -t "**mqttid**radin/scan" -m "payload"`  
+
+Note that you need to use the mqtt id for the esp that must be configured during config mode (see below). 
 
 ---
 
