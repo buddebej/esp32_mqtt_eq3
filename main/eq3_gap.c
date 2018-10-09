@@ -106,7 +106,7 @@ int add_found_device(esp_bd_addr_t *bda){
 }
 
 /* BT GAP device scanning code */
-static const char remote_device_name[] = "CC-RT-M-BLE";
+static const char remote_device_name[] = "CC-RT-BLE";
 
 static esp_ble_scan_params_t ble_scan_params = {
     .scan_type              = BLE_SCAN_TYPE_ACTIVE,
