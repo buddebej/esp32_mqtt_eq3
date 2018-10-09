@@ -1,3 +1,18 @@
+#### Steps to make this great project by softypits work for me:
+
+Use esp-idf at the following revision:
+https://github.com/espressif/esp-idf/tree/2e8441df9eb046b2436981dbaaa442b312f12101
+
+Apply his fix directly to the esp-idf code:
+https://github.com/softypit/esp32_mqtt_eq3/issues/1#issuecomment-407320257
+
+Change device id to suite my hardware:
+https://github.com/buddebej/esp32_mqtt_eq3/commit/4267beba7d82416f65a3765e0c6d2cab8dda547d
+
+Run `make flash`
+
+---
+
 EQ-3 Radiator valve control application for ESP-32
 
 Tested on ESP-WROOM-32
