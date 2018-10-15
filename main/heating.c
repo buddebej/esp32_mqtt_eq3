@@ -42,6 +42,8 @@ void heating_init(){
 	ledc_conf.timer_sel  = LEDC_TIMER_0;
 	ledc_channel_config(&ledc_conf);
 
+	vTaskDelay(1500 / portTICK_PERIOD_MS);
+ 	ledc_stop(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_0, 0);
 }   
 
 void heating_on(){

@@ -30,7 +30,9 @@
 #include "tcpip_adapter.h"
 #include "mqtt.h"
 
+#include "temp.h"
 #include "heating.h"
+#include "DHT22.h"
 
 
 #ifdef removed
@@ -113,6 +115,7 @@ static void connected_cb(mqtt_client *client, mqtt_event_data_t *event_data){
     }
 
     heating_init();
+    temp_init();
 }
 /* MQTT disconnected */
 static void disconnected_cb(mqtt_client *client, mqtt_event_data_t *event_data){
@@ -142,8 +145,16 @@ static void data_cb(mqtt_client *client, mqtt_event_data_t *event_data){
 	        trvscan = true;
         if(strstr(topic, "/heaton") != NULL)
             heaton = true;
-         if(strstr(topic, "/heatoff") != NULL)
+        if(strstr(topic, "/heatoff") != NULL)
             heatoff = true;
+        if(strstr(topic, "/dht") != NULL){
+            char topic[38];
+            sprintf(topic, "%s/dht", outtopicbase);
+            getDhtData();
+            char dht[24];
+            sprintf(dht, "{Temp: %.1f, Relh: %.1f}", getTemperature(), getHumidity());
+            mqtt_publish(repclient, topic, dht, strlen(dht), 0, 0);
+        }
         if(strstr(topic, "/check") != NULL){
 	        char rsptopic[45];
             char msg[35];
